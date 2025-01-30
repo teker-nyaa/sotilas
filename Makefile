@@ -1,5 +1,15 @@
-CFLAGS = --std=c99 -Wall -Werror -o
-CC = clang
+CC = clang++
+CFLAGS = --std=c++11 -Wall -Werror -o
+SOURCE = source/
+BUILD = build/
 
-all:
-	$(CC) src/main.c $(CFLAGS) build/sotilas
+shared:
+	$(CC) $(SOURCE)mathlib.cpp -c $(CFLAGS) $(BUILD)math.o
+	make client
+
+client:
+	$(CC) $(SOURCE)cl_main.cpp -c $(CFLAGS) $(BUILD)client.o
+	make main
+
+main:
+	$(CC) $(BUILD)client.o -o $(BUILD)sotilas
